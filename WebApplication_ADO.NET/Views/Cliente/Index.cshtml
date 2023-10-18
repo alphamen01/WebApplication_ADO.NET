@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebApplication_ADO.NET.Models.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Clientes</h2>
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show fade-out" role="alert">
+        <strong>Informacion: </strong> @TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@*<div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>*@
+
+@*<div class="alert alert-info alert-dismissible fade show fade-out" role="alert">
+    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>*@
+
+
+
+<p>
+    @Html.ActionLink("Crear Nuevo Cliente", "Create",null, new {@class="btn btn-primary"})
+</p>
+<div class="table-responsive-xl">
+    <table class="table table-bordered table-responsive text-center">
+        <tr class="table-dark">
+            <th>
+                @Html.DisplayNameFor(model => model.id_cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>Opciones</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_cliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_cliente }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.id_cliente }, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_cliente }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

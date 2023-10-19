@@ -1,0 +1,65 @@
+﻿@model WebApplication_ADO.NET.Models.Cliente
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Crear Cliente</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show fade-out" role="alert">
+        <strong>Error: </strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizonal">
+        @*<h4>Cliente</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control alargar", autocomplete = "off", maxlength = 255 } })
+                @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control alargar", autocomplete = "off", maxlength = 255 } })
+                @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control alargar", autocomplete = "off" , oninput = "this.value = this.value.replace(/[^0-9]/g, '')", maxlength = 15 } })
+                @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            <div class="col-md-offset-2 col-md-10 text-center">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-danger" })
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

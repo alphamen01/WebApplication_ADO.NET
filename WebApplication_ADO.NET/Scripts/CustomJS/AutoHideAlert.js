@@ -19,6 +19,6 @@ setTimeout(function () {
         alertDiv.style.opacity = "0";
         setTimeout(function () {
             alertDiv.style.display = "none";
-        }, 1000); // Puedes ajustar el tiempo del desvanecimiento aquí
+        }, 2000); // Puedes ajustar el tiempo del desvanecimiento aquí
     }
-}, 2000); // Puedes ajustar el tiempo antes de iniciar el desvanecimiento aquí
+}, 5000); // Puedes ajustar el tiempo antes de iniciar el desvanecimiento aquí

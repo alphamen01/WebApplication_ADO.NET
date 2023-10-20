@@ -13,12 +13,12 @@
 //    }, 1000); // Puedes ajustar el tiempo del desvanecimiento aquí
 //}, 2000); // Puedes ajustar el tiempo antes de iniciar el desvanecimiento aquí
 
-setTimeout(function () {
-    var alertDiv = document.querySelector(".fade-out");
-    if (alertDiv) {
-        alertDiv.style.opacity = "0";
-        setTimeout(function () {
-            alertDiv.style.display = "none";
-        }, 1200); // Puedes ajustar el tiempo del desvanecimiento aquí
-    }
-}, 4000); // Puedes ajustar el tiempo antes de iniciar el desvanecimiento aquí
+//setTimeout(function () {
+//    var alertDiv = document.querySelector(".fade-out");
+//    if (alertDiv) {
+//        alertDiv.style.opacity = "0";
+//        setTimeout(function () {
+//            alertDiv.style.display = "none";
+//        }, 1200); // Puedes ajustar el tiempo del desvanecimiento aquí
+//    }
+//}, 4000); // Puedes ajustar el tiempo antes de iniciar el desvanecimiento aquí

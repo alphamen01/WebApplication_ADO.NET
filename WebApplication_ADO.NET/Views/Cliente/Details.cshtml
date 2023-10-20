@@ -1,0 +1,75 @@
+﻿@model WebApplication_ADO.NET.Models.Cliente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalle Cliente</h2>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show fade-out" role="alert">
+        <strong>Error: </strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<div>
+    @*<h4>Cliente</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+        </div>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>*@
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.direccion)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.direccion)
+            </dd>
+        </div>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>*@
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.telefono)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.telefono)
+            </dd>
+        </div>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>*@
+
+    </dl>
+</div>
+<p class="text-center col-md-offset-2 col-md-10">
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id_cliente }, new { @class = "btn btn-success" }) 
+    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-danger" })
+</p>

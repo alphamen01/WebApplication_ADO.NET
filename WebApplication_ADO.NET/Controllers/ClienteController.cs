@@ -28,7 +28,21 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Cliente/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                var cliente = clienteDAL.GetCliente(id).FirstOrDefault();
+                if (cliente == null)
+                {
+                    TempData["InfoMessage"] = "Cliente no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         // GET: Cliente/Create

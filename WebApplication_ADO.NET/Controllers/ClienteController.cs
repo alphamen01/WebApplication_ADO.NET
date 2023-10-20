@@ -54,7 +54,7 @@ namespace WebApplication_ADO.NET.Controllers
                     }
                     else
                     {
-                        TempData["ErrorMessage"] = "El cliente ya existe, no se puede realizar el registro.";
+                        TempData["ErrorMessage"] = "El nombre del cliente ya existe, no se puede realizar el registro.";
                     }
                 }
                 return View(cliente); // Devuelve la vista con el modelo para que el usuario pueda corregir errores.
@@ -99,23 +99,53 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Cliente/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var cliente = clienteDAL.GetCliente(id).FirstOrDefault();
+            if (cliente == null)
+            {
+                TempData["InfoMessage"] = "Cliente no disponible.";
+                return RedirectToAction("Index");
+            }
+            return View(cliente);
         }
 
         // POST: Cliente/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost, ActionName("Edit")]
+        public ActionResult UpdateCliente(Cliente cliente)
         {
+
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    bool isUpdate = clienteDAL.UpdateCliente(cliente);
 
-                return RedirectToAction("Index");
+                    if (isUpdate)
+                    {
+                        TempData["SuccessMessage"] = "Cliente actualizado exitosamente.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "El nombre del cliente ya existe, no se puede actualizar el registro.";
+                    }
+                }
+                return View(cliente); // Devuelve la vista con el modelo para que el usuario pueda corregir errores.
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["ErrorMessage"] = ex.Message;
+                return View(cliente); // Devuelve la vista con el modelo para que el usuario pueda corregir errores.
             }
+            //try
+            //{
+            //    // TODO: Add update logic here
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: Cliente/Delete/5

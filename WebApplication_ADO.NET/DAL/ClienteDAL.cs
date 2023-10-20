@@ -176,5 +176,28 @@ namespace WebApplication_ADO.NET.DAL
                 return false;
             }
         }
+
+        /// DELETE CLIENTE
+        
+        public string DeleteCliente(int id)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand(@"mantenimiento.ADO_ASP_MVC_DELETECLIENTE", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@ID_CLIENTE", id);
+                command.Parameters.Add("@OUTPUTMESSAGE", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                result = command.Parameters["@OUTPUTMESSAGE"].Value.ToString();
+                connection.Close();
+            }
+
+            return result;
+        }
+
     }
 }

@@ -99,13 +99,22 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Cliente/Edit/5
         public ActionResult Edit(int id)
         {
-            var cliente = clienteDAL.GetCliente(id).FirstOrDefault();
-            if (cliente == null)
+            try
             {
-                TempData["InfoMessage"] = "Cliente no disponible.";
-                return RedirectToAction("Index");
+                var cliente = clienteDAL.GetCliente(id).FirstOrDefault();
+                if (cliente == null)
+                {
+                    TempData["InfoMessage"] = "Cliente no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(cliente);
             }
-            return View(cliente);
+            catch (Exception ex)
+            {
+
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         // POST: Cliente/Edit/5
@@ -151,23 +160,61 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Cliente/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var cliente = clienteDAL.GetCliente(id).FirstOrDefault();
+                if (cliente == null)
+                {
+                    TempData["InfoMessage"] = "Cliente no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(cliente);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         // POST: Cliente/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteCliente(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                string result = clienteDAL.DeleteCliente(id);
 
-                return RedirectToAction("Index");
+                if (result.Contains("eliminado"))
+                {
+                    TempData["SuccessMessage"] = result;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = result;
+                    return RedirectToAction("Delete");
+                }
+                
+
             }
-            catch
+            catch (Exception ex)
             {
+
+                TempData["ErrorMessage"] = ex.Message;
                 return View();
             }
+            //try
+            //{
+            //    // TODO: Add delete logic here
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
     }
 }

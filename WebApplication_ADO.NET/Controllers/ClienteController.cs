@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication_ADO.NET.DAL;
 using WebApplication_ADO.NET.Models;
+using WebApplication_ADO.NET.Permisos;
 
 namespace WebApplication_ADO.NET.Controllers
 {
+    [ValidarSesion]
     public class ClienteController : Controller
     {
         ClienteDAL clienteDAL = new ClienteDAL();

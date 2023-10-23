@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    
 </head>
 
 
@@ -33,7 +33,7 @@
                 </div>
                 @if (ViewData["Mensaje"] != null)
                 {
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show fade-out" role="alert">
                         @ViewData["Mensaje"]
                     </div>
                 }
@@ -52,5 +52,7 @@
             </div>
         </div>
     </div>
+    <script src="~/Scripts/CustomJS/AutoHideAlert.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 </body>
 </html>

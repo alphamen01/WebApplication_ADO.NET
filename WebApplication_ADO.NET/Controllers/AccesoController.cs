@@ -46,6 +46,7 @@ namespace WebApplication_ADO.NET.Controllers
 
             if (registrado)
             {
+                TempData["SuccessMessage"] = mensaje;
                 return RedirectToAction("Login", "Acceso");
             }
             else

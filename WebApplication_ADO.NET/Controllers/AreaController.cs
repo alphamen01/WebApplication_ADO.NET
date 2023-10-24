@@ -151,23 +151,62 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Area/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var area = areaDAL.GetArea(id).FirstOrDefault();
+                if (area == null)
+                {
+                    TempData["InfoMessage"] = "Area no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(area);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         // POST: Area/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteArea(int id)
         {
+
             try
             {
-                // TODO: Add delete logic here
+                string result = areaDAL.DeleteArea(id);
 
-                return RedirectToAction("Index");
+                if (result.Contains("eliminada"))
+                {
+                    TempData["SuccessMessage"] = result;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = result;
+                    return RedirectToAction("Delete");
+                }
+
+
             }
-            catch
+            catch (Exception ex)
             {
+
+                TempData["ErrorMessage"] = ex.Message;
                 return View();
             }
+            //try
+            //{
+            //    // TODO: Add delete logic here
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
     }
 }

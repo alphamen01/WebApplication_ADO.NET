@@ -1,0 +1,147 @@
+﻿@model WebApplication_ADO.NET.Models.Area
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Area</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show fade-out" role="alert">
+        <strong>Error: </strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h3>Seguro que quieres borrar esto?</h3>
+<div>
+    @*<h4>Area</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.descripcion)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.descripcion)
+            </dd>
+        </div>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.id_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_cliente)
+        </dd>*@
+
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.nombre_cliente)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.nombre_cliente)
+            </dd>
+        </div>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.nombre_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_cliente)
+        </dd>*@
+
+        @*<div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.enu_estado_registro)
+            </dt>
+
+            <dd class="col-md-10">
+                @Html.DisplayFor(model => model.enu_estado_registro)
+            </dd>
+        </div>*@
+
+        <div class="form-group row mb-2">
+            <dt class="control-label col-md-2 mb-2 negrita">
+                @Html.DisplayNameFor(model => model.enu_estado_registro)
+            </dt>
+
+            <dd class="col-md-10">
+                @{
+                    char estado = Model.enu_estado_registro;
+                    string estadoTexto = (estado.ToString() == "A") ? "Activo" : (estado.ToString() == "I") ? "Inactivo" : estado.ToString();
+                }
+                @estadoTexto
+            </dd>
+        </div>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.enu_estado_registro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.enu_estado_registro)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.usuario_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_creacion)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_creacion)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.usuario_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_modificacion)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.fecha_modificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_modificacion)
+        </dd>*@
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.nombre_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_cliente)
+        </dd>*@
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color text-center col-md-offset-2 col-md-10">
+            <input type="submit" value="Eliminar" class="btn btn-success" /> 
+            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>

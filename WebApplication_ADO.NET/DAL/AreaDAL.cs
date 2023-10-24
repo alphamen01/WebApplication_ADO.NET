@@ -158,7 +158,7 @@ namespace WebApplication_ADO.NET.DAL
             return areaList;
         }
 
-        /// UPDATE CLIENTE
+        /// UPDATE AREA
 
         public bool UpdateArea(Area area)
         {
@@ -210,6 +210,28 @@ namespace WebApplication_ADO.NET.DAL
             {
                 return false;
             }
+        }
+
+        /// DELETE AREA
+
+        public string DeleteArea(int id)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand(@"mantenimiento.ADO_ASP_MVC_DELETEAREA", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@ID_AREA", id);
+                command.Parameters.Add("@OUTPUTMESSAGE", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                result = command.Parameters["@OUTPUTMESSAGE"].Value.ToString();
+                connection.Close();
+            }
+
+            return result;
         }
     }
 }

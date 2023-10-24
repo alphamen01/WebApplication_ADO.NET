@@ -64,7 +64,7 @@ namespace WebApplication_ADO.NET.DAL
             return areaList;
         }
 
-        /// INSERT CLIENTE
+        /// INSERT AREA
 
         public bool InsertArea(Area area)
         {
@@ -106,6 +106,103 @@ namespace WebApplication_ADO.NET.DAL
 
             }
             if (id > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        /// GET AREA
+
+        public List<Area> GetArea(int id)
+        {
+            List<Area> areaList = new List<Area>();
+
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = @"mantenimiento.ADO_ASP_MVC_GETAREA";
+                command.Parameters.AddWithValue("@ID_AREA", id);
+
+                SqlDataAdapter sqlDA = new SqlDataAdapter(command);
+
+                DataTable dtArea = new DataTable();
+
+                connection.Open();
+                sqlDA.Fill(dtArea);
+                connection.Close();
+
+                foreach (DataRow dr in dtArea.Rows)
+                {
+                    areaList.Add(new Area
+                    {
+                        id_area = Convert.ToInt32(dr["id_area"]),
+                        descripcion = dr["descripcion"].ToString(),
+                        id_cliente = Convert.ToInt32(dr["id_cliente"]),
+                        enu_estado_registro = Convert.ToChar(dr["enu_estado_registro"]),
+                        usuario_creacion = dr["usuario_creacion"].ToString(),
+                        fecha_creacion = Convert.ToDateTime(dr["fecha_creacion"]),
+                        usuario_modificacion = dr["usuario_modificacion"] != DBNull.Value ? dr["usuario_modificacion"].ToString() : string.Empty,
+                        fecha_modificacion = dr["fecha_modificacion"] != DBNull.Value ? Convert.ToDateTime(dr["fecha_modificacion"]) : DateTime.MinValue,
+                        nombre_cliente = dr["nombre_cliente"].ToString()
+                    });
+                }
+            }
+
+            return areaList;
+        }
+
+        /// UPDATE CLIENTE
+
+        public bool UpdateArea(Area area)
+        {
+            int i = 0;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand(@"mantenimiento.ADO_ASP_MVC_UPDATEAREA", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Crear una tabla de datos con los datos del area
+                DataTable areaTable = new DataTable();
+                areaTable.Columns.Add("id_area", typeof(int));
+                areaTable.Columns.Add("descripcion", typeof(string));
+                areaTable.Columns.Add("id_cliente", typeof(int));
+                areaTable.Columns.Add("enu_estado_registro", typeof(char));
+                areaTable.Columns.Add("usuario_creacion", typeof(string));
+                areaTable.Columns.Add("fecha_creacion", typeof(DateTime));
+                areaTable.Columns.Add("usuario_modificacion", typeof(string));
+                areaTable.Columns.Add("fecha_modificacion", typeof(DateTime));
+
+                // Agregar los datos del area a la tabla
+                DataRow nuevaArea = areaTable.NewRow();
+                nuevaArea["id_area"] = area.id_area;
+                nuevaArea["descripcion"] = area.descripcion;
+                nuevaArea["id_cliente"] = area.id_cliente;
+                nuevaArea["enu_estado_registro"] = area.enu_estado_registro;
+                nuevaArea["usuario_creacion"] = area.usuario_creacion;
+                nuevaArea["fecha_creacion"] = area.fecha_creacion;
+                nuevaArea["usuario_modificacion"] = "LUIS MODIFICA";
+                nuevaArea["fecha_modificacion"] = DateTime.Now;
+                areaTable.Rows.Add(nuevaArea);
+
+
+                // Agregar la tabla de datos como un parámetro al comando
+                SqlParameter areaParam = command.Parameters.AddWithValue("@AREA_TYPE", areaTable);
+                areaParam.SqlDbType = SqlDbType.Structured;
+
+                connection.Open();
+                // Ejecutar el procedimiento almacenado
+                i = command.ExecuteNonQuery();
+                connection.Close();
+
+            }
+            if (i > 0)
             {
                 return true;
             }

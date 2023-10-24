@@ -61,7 +61,7 @@ namespace WebApplication_ADO.NET.Controllers
                     }
                     else
                     {
-                        TempData["ErrorMessage"] = "La descripcion de la area ya existe, no se puede realizar el registro.";
+                        TempData["ErrorMessage"] = "La descripcion del area ya existe, no se puede realizar el registro.";
                     }
                 }
 
@@ -80,23 +80,72 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Area/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            // Obtener la lista de clientes desde tu base de datos y almacenarla en ViewBag o en un modelo.
+            List<Cliente> clientes = clienteDAL.GetAllClientes(); // Aquí debes implementar la obtención de clientes.
+
+            // Almacena la lista de clientes en ViewBag para usarla en la vista.
+            ViewBag.ClientesList = new SelectList(clientes, "id_cliente", "nombre");
+
+            try
+            {
+                var area = areaDAL.GetArea(id).FirstOrDefault();
+                if (area == null)
+                {
+                    TempData["InfoMessage"] = "Area no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(area);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
+            //return View();
         }
 
         // POST: Area/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost, ActionName("Edit")]
+        public ActionResult UpdateArea(Area area)
         {
+
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    bool isUpdate = areaDAL.UpdateArea(area);
 
-                return RedirectToAction("Index");
+                    if (isUpdate)
+                    {
+                        TempData["SuccessMessage"] = "Area actualizada exitosamente.";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "La descripcion del area ya existe, no se puede actualizar el registro.";
+                    }
+                }
+                // Recargar la lista de clientes para volver a mostrarla en caso de error.
+                List<Cliente> clientes = clienteDAL.GetAllClientes(); // Aquí debes implementar la obtención de clientes.
+                ViewBag.ClientesList = new SelectList(clientes, "id_cliente", "nombre");
+                return View(area); // Devuelve la vista con el modelo para que el usuario pueda corregir errores.
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["ErrorMessage"] = ex.Message;
+                return View(area); // Devuelve la vista con el modelo para que el usuario pueda corregir errores.
             }
+            //try
+            //{
+            //    // TODO: Add update logic here
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: Area/Delete/5

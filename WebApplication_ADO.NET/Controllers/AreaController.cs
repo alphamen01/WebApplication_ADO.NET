@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication_ADO.NET.DAL;
 using WebApplication_ADO.NET.Models;
+using WebApplication_ADO.NET.Permisos;
 
 namespace WebApplication_ADO.NET.Controllers
 {
+    [ValidarSesion]
     public class AreaController : Controller
     {
         AreaDAL areaDAL = new AreaDAL();
@@ -28,7 +30,21 @@ namespace WebApplication_ADO.NET.Controllers
         // GET: Area/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                var area = areaDAL.GetArea(id).FirstOrDefault();
+                if (area == null)
+                {
+                    TempData["InfoMessage"] = "Area no disponible.";
+                    return RedirectToAction("Index");
+                }
+                return View(area);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         // GET: Area/Create

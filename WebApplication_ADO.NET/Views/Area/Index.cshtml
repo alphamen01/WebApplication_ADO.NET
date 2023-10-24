@@ -13,6 +13,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
+else if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show fade-out" role="alert">
+        <strong>Success: </strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <p>
     @Html.ActionLink("Crear Nueva Area", "Create", null, new { @class = "btn btn-primary" })
@@ -85,80 +92,80 @@
             <th>
                 @Html.DisplayNameFor(model => model.descripcion)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.id_cliente)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.enu_estado_registro)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.usuario_creacion)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.fecha_creacion)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.usuario_modificacion)
             </th>*@
-            @*<th>
+        @*<th>
                 @Html.DisplayNameFor(model => model.fecha_modificacion)
             </th>*@
-            @*<th>
-                @Html.DisplayNameFor(model => model.nombre_cliente)
-            </th>
-            <th>Opciones</th>
-        </tr>*@
+        @*<th>
+                    @Html.DisplayNameFor(model => model.nombre_cliente)
+                </th>
+                <th>Opciones</th>
+            </tr>*@
 
         @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id_area)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.id_cliente)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.enu_estado_registro)
-                </td>*@
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id_area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.id_cliente)
+            </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.enu_estado_registro)
+            </td>*@
 
-                @*<td>
-                    @{
-                        if (item.enu_estado_registro == 'I')
-                        {
-                            <text>Inactivo</text>
-                        }
-                        else if (item.enu_estado_registro == 'A')
-                        {
-                            <text>Activo</text>
-                        }
+        @*<td>
+                @{
+                    if (item.enu_estado_registro == 'I')
+                    {
+                        <text>Inactivo</text>
                     }
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.usuario_creacion)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.fecha_creacion)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.usuario_modificacion)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.fecha_modificacion)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.nombre_cliente)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.id_area }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Detalle", "Details", new { id = item.id_area }, new { @class = "btn btn-secondary" })
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.id_area }, new { @class = "btn btn-danger" })
-                </td>
-            </tr>
-        }*@
+                    else if (item.enu_estado_registro == 'A')
+                    {
+                        <text>Activo</text>
+                    }
+                }
+            </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.usuario_creacion)
+            </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.fecha_creacion)
+            </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.usuario_modificacion)
+            </td>*@
+        @*<td>
+                @Html.DisplayFor(modelItem => item.fecha_modificacion)
+            </td>*@
+        @*<td>
+                        @Html.DisplayFor(modelItem => item.nombre_cliente)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.id_area }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Detalle", "Details", new { id = item.id_area }, new { @class = "btn btn-secondary" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.id_area }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }*@
 
 
     </table>

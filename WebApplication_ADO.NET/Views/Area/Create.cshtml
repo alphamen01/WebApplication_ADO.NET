@@ -1,0 +1,118 @@
+﻿@model WebApplication_ADO.NET.Models.Area
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Crear Area</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show fade-out" role="alert">
+        <strong>Error: </strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @*<h4>Area</h4>*@
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group row mb-2">
+        @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control alargar", autocomplete = "off", maxlength = 255 } })
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        @Html.LabelFor(model => model.id_cliente, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.id_cliente, new { htmlAttributes = new { @class = "form-control alargar" } })
+            @Html.ValidationMessageFor(model => model.id_cliente, "", new { @class = "text-danger" })*@
+            @Html.DropDownListFor(model => model.id_cliente, (SelectList)ViewBag.ClientesList, "Seleccione un cliente", new { @class = "form-control alargar" })
+            @Html.ValidationMessageFor(model => model.id_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group row mb-3">
+        @Html.LabelFor(model => model.enu_estado_registro, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.enu_estado_registro, new { htmlAttributes = new { @class = "form-control alargar", maxlength = 1 } })
+            @Html.ValidationMessageFor(model => model.enu_estado_registro, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.enu_estado_registro, htmlAttributes: new { @class = "control-label col-md-2 mb-2 negrita" })
+        <div class="col-md-10">
+            <label class="radio-inline">
+                @Html.RadioButtonFor(model => model.enu_estado_registro, "A", new { @class = "form-check-input" }) Activo
+            </label>
+            <label class="radio-inline">
+                @Html.RadioButtonFor(model => model.enu_estado_registro, "I", new { @class = "form-check-input" }) Inactivo
+            </label>
+            @Html.ValidationMessageFor(model => model.enu_estado_registro, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.usuario_creacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario_creacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario_creacion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.fecha_creacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fecha_creacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fecha_creacion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.usuario_modificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.usuario_modificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usuario_modificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.fecha_modificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fecha_modificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fecha_modificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.nombre_cliente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nombre_cliente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombre_cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group row mb-2">
+        <div class="col-md-offset-2 col-md-10 text-center">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-danger" })
+        </div>
+    </div>
+</div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

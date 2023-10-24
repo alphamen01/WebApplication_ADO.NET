@@ -63,5 +63,56 @@ namespace WebApplication_ADO.NET.DAL
 
             return areaList;
         }
+
+        /// INSERT CLIENTE
+
+        public bool InsertArea(Area area)
+        {
+            int id = 0;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand(@"mantenimiento.ADO_ASP_MVC_INSERTAREA", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Crear una tabla de datos con los datos de la area
+                DataTable areaTable = new DataTable();
+                areaTable.Columns.Add("id_area", typeof(int));
+                areaTable.Columns.Add("descripcion", typeof(string));
+                areaTable.Columns.Add("id_cliente", typeof(int));
+                areaTable.Columns.Add("enu_estado_registro", typeof(char));
+                areaTable.Columns.Add("usuario_creacion", typeof(string));
+                areaTable.Columns.Add("fecha_creacion", typeof(DateTime));
+                areaTable.Columns.Add("usuario_modificacion", typeof(string));
+                areaTable.Columns.Add("fecha_modificacion", typeof(DateTime));
+
+                // Agregar los datos de la area a la tabla
+                DataRow nuevaArea = areaTable.NewRow();
+                nuevaArea["descripcion"] = area.descripcion;
+                nuevaArea["id_cliente"] = area.id_cliente;
+                nuevaArea["enu_estado_registro"] = area.enu_estado_registro;
+                nuevaArea["usuario_creacion"] = "LUIS CREA";
+                nuevaArea["fecha_creacion"] = DateTime.Now;
+                areaTable.Rows.Add(nuevaArea);
+
+
+                // Agregar la tabla de datos como un parámetro al comando
+                SqlParameter areaParam = command.Parameters.AddWithValue("@AREA_TYPE", areaTable);
+                areaParam.SqlDbType = SqlDbType.Structured;
+
+                connection.Open();
+                // Ejecutar el procedimiento almacenado
+                id = command.ExecuteNonQuery();
+                connection.Close();
+
+            }
+            if (id > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

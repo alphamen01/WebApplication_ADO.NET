@@ -36,8 +36,8 @@ else if (TempData["SuccessMessage"] != null)
     @Html.ActionLink("Crear Nuevo Cliente", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <div class="table-responsive-xl">
-    <table class="table table-bordered table-responsive text-center">
-        <tr class="table-dark">
+    <table class="table table-bordered table-responsive table-hover text-center">
+        @*<tr class="table-dark">
             <th>
                 @Html.DisplayNameFor(model => model.id_cliente)
             </th>
@@ -51,9 +51,9 @@ else if (TempData["SuccessMessage"] != null)
                 @Html.DisplayNameFor(model => model.telefono)
             </th>
             <th>Opciones</th>
-        </tr>
+        </tr>*@
 
-        @foreach (var item in Model)
+        @*@foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -74,6 +74,56 @@ else if (TempData["SuccessMessage"] != null)
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.id_cliente }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
+        }*@
+
+        @{
+            if (Model != null && Model.Count() > 0)
+            {
+                <tr class="table-dark">
+                    <th>
+                        @Html.DisplayNameFor(model => model.id_cliente)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.direccion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.telefono)
+                    </th>
+                    <th>Opciones</th>
+                </tr>
+
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.direccion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.telefono)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.id_cliente }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Detalle", "Details", new { id = item.id_cliente }, new { @class = "btn btn-secondary" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.id_cliente }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="table-dark">
+                    <th>No hay registros de Clientes.</th>
+                </tr>
+            }
         }
 
     </table>

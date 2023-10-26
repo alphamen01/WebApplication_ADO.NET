@@ -165,6 +165,8 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\areaADONET - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\areaADONET - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomJS\AutoHideAlert.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
